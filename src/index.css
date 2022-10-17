@@ -7,7 +7,56 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+nav {
+  padding: 0 1rem;
+}
+
+.content {
+  min-height: calc(100vh - 64px - 70px);
+  padding: 1.5rem 0;
+}
+
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.search-btn {
+  position: absolute;
+  top: 0;
+  right: 0.5rem;
+}
+
+ /* label color */
+ .input-field label {
+  color: #000;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+  color: #cddc39 !important;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #cddc39 !important;
+  box-shadow: 0 1px 0 0 #cddc39 !important;
+}
+/* valid color */
+.input-field input[type=text].valid {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #000;
+}
+
+.filter input [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+  background-color: #cddc39 !important;
+  border: 2px solid #cddc39 !important;
 }

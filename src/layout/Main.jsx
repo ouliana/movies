@@ -14,7 +14,7 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=star trek`)
+        fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=star trek`)
             .then((response) => {
                 return response.json();
             })

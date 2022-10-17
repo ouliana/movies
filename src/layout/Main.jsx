@@ -1,4 +1,5 @@
 import React from 'react'
+import Preloader from '../components/Preloader'
 import Movies from '../components/Movies'
 
 
@@ -24,8 +25,13 @@ class Main extends React.Component {
     render() {
         const { movies, loading } = this.state;
         
-        return <main>
-           <Movies movies={movies} /> 
+        return <main className='container content'>
+            {
+                loading ? (
+                    <Preloader />
+                ) : <Movies movies={movies} /> 
+            }
+           
         </main>
     }
 

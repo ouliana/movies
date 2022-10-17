@@ -56,7 +56,16 @@ nav {
   color: #000;
 }
 
-.filter input [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
-  background-color: #cddc39 !important;
-  border: 2px solid #cddc39 !important;
+
+label:not(:last-child) {
+  margin-right: 2.5rem;
 }
+
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+  background-color: #cddc39;
+  border-color: #cddc39;
+}
+
+.progress {
+  background-color: #f0f4c3;
+ }

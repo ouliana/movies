@@ -1,55 +1,55 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Preloader from '../components/Preloader'
 import Movies from '../components/Movies'
 import Search from '../components/Search'
 
 
 const API_KEY = process.env.REACT_APP_API_KEY;
+const baseSearch = `https://www.omdbapi.com/?apikey=${API_KEY}`;
+let defaultMovie = 'star trek';
 
-class Main extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            movies: [],
-            loading: true,
-            last: 'star trek'
-        }
-        this.baseSearch = `https://www.omdbapi.com/?apikey=${API_KEY}`
-    }
+function Main() {
+    const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    componentDidMount() {
-        fetch(`${this.baseSearch}&s=${this.state.last}`)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => this.setState({ movies: data.Search, loading: false }));
-    }
-
-    newSearch = (search, type) => {
-        this.setState({ loading: true })
+    const newSearch = (search, type) => {
+        setLoading(true);
         if (search) {
-            this.setState({ last: search })
+            defaultMovie = search;
         }
-        fetch(`${this.baseSearch}&s=${search ? search : this.state.last}${type ? `&type=${type}` : ''}` )
+        fetch(`${baseSearch}&s=${search ? search : defaultMovie}${type ? `&type=${type}` : ''}` )
             .then((response) => {
                 return response.json();
             })
-            .then((data) => this.setState({movies: data.Search, loading:false}));
+            .then((data) => {
+                setMovies(data.Search);
+                setLoading(false);
+            });
     }
 
-    render() {
-        const { movies, loading } = this.state;
-        
-        return <main className='container content'>
-            <Search newSearch={this.newSearch}/>
+    useEffect(() => {
+        fetch(`${baseSearch}&s=${defaultMovie}`)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setMovies(data.Search);
+                setLoading(false);
+            });
+    },[]);
+
+   
+
+    return (
+        <main className='container content'>
+            <Search newSearch={newSearch} />
             {
                 loading ? (
                     <Preloader />
-                ) : <Movies movies={movies} /> 
+                ) : <Movies movies={movies} />
             }
         </main>
-    }
-
+    );
 }
 
 export default Main
